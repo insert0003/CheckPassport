@@ -7,8 +7,6 @@ import random
 import smtplib
 import ssl
 import os
-if os.name == 'nt':
-    import chromedriver_binary  # Adds chromedriver binary to path
 
 from email.mime.text import MIMEText
 from email.utils import formatdate
@@ -36,7 +34,10 @@ def get_driver(argument, address):
     option = Options()
     if argument is not None:
         option.add_argument(argument)
-    driver = webdriver.Chrome(options=option)
+    if os.name == 'nt':
+        driver = webdriver.Chrome('./driver/chromedriver.exe', options=option)
+    else:
+        driver = webdriver.Chrome(options=option)
     driver.get("https://ppt.mfa.gov.cn/")
 
     # continue reservation
@@ -109,7 +110,7 @@ if __name__ == '__main__':
         print(u"请正确设置配置文件")
         exit()
     
-    for loopCount in range(2):
+    for loopCount in range(500):
         try:
             print(u"开始第{}次尝试...".format(loopCount+1))
             driver = get_driver('--headless', 2)
@@ -137,7 +138,7 @@ if __name__ == '__main__':
                 time.sleep(3600)
 
             print(u"第{}次尝试结束，休息3分钟．".format(loopCount+1))
-            time.sleep(1)
+            time.sleep(180)
 
         except NoSuchElementException as e:
             print(u"没有该元素: {}".format(e))
