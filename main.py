@@ -6,7 +6,9 @@ import json
 import random
 import smtplib
 import ssl
-import chromedriver_binary  # Adds chromedriver binary to path
+import os
+if os.name == 'nt':
+    import chromedriver_binary  # Adds chromedriver binary to path
 
 from email.mime.text import MIMEText
 from email.utils import formatdate
@@ -95,7 +97,7 @@ if __name__ == '__main__':
     ANSWER = ""
 
     try:
-        with open("./config.json",'r') as load_f:
+        with open("./config.json",'r',encoding='utf-8') as load_f:
             load_dict = json.load(load_f)
             FROM = load_dict['from']
             TO = load_dict['to']
