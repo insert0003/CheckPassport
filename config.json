@@ -1,9 +1,11 @@
 {
   "from": "XXXX@gmail.com",
   "to": "XXXX@qq.com",
-  "password": "XXXX",
+  "apikey": "XXXX",
   "id": "XXXX",
-  "question": "2",
-  "answer": "XXXX"
+  "question": "1",
+  "answer": "1",
+  "debug": "0",
+  "visible": "0"
 }
 
